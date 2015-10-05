@@ -1,0 +1,6 @@
+## Interface: 11200
+## Author: obble
+## Title: mod ups
+## Notes: simple spell & aura tracker mod using text strings.
+list.lua
+spell.lua
