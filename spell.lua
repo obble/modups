@@ -11,7 +11,7 @@
         if not spell.priority then spell.priority = 1 end
         spell.name = spell.Name
         if not spell.name then
-            print('modups: |cff01DFD7Spell', spell.id, 'doesn\'t exist! Check your info is correct in listofspells.lua.')
+            print('modups: |cff01DFD7A spell in your library doesn\'t exist! Check your info is correct in modups\\list.lua.')
             tremove(modspells, i)
         end
     end
