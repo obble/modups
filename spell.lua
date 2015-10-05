@@ -49,6 +49,10 @@
             GameTooltip:ClearLines()
             GameTooltip:SetPlayerBuff(GetPlayerBuff(i, 'HELPFUL'))
             local buff  = GameTooltipTextLeft1:GetText()
+
+            GameTooltip:ClearLines()
+            GameTooltip:SetPlayerBuff(GetPlayerBuff(i, 'HARMFUL'))
+            local debuff  = GameTooltipTextLeft1:GetText()
             local stack = GetPlayerBuffApplications(i)
 
             for i = shown, tlength(fontstrings) do
@@ -57,7 +61,7 @@
 
             for j = 1, tlength(modspells) do
                 local spell = modspells[j]
-                if buff and spell.name == buff then
+                if (buff and spell.name == buff) or (debuff and spell.name == debuff) then
                     if spell.show == true then
                         local fontstring = fontstrings[shown] -- keep them all in another indexed table
                         fontstring:SetText(string.rep(spell.symbol, stack > 0 and stack or 1))

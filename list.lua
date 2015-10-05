@@ -18,8 +18,8 @@
             show = true,
             Name = 'Power Word: Shield',
             symbol = '( )',
-            size = 20,
-            colour = { 1, .8, .3 },
+            size = 18,
+            colour = { 1, .8, .3 }, -- yellow
         },
         {
             priority = 2,
@@ -27,6 +27,22 @@
             Name = 'Fear Ward',
             symbol = '‡',
             size = 20,
-            colour = { 1, 1, 1 },
+            colour = { 1, 1, 1 },   -- white
+        },
+        {   -- HUNTER
+            priority = 4,
+            show = true,
+            Name = 'Aspect of the Cheetah',
+            symbol = '>',
+            size = 20,
+            colour = { 1, .5, .2 }, -- umber
+        },
+        {
+            priority = 4,
+            show = true,
+            Name = 'Aspect of the Pack',
+            symbol = '>',
+            size = 20,
+            colour = { 1, .2, .2 }, -- red
         },
     }
