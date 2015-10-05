@@ -11,7 +11,7 @@
             Name = 'Renew',         -- aura name.
             symbol = '+',           -- symbol or text you want to represent the aura with.
             size = 24,              -- size of text.
-            colour = { 0, 1, 0 },   -- RGB colour of text, can be numeric (0-1) or out of 255. in this case it's a nice yellow.
+            colour = { 0, 1, 0 },   -- RGB colour of text, can be numeric (0-1) or out of 255. in this case it's a nice green.
         },
         {
             priority = 2,
