@@ -1,6 +1,6 @@
 
 
-    local function tlength(t)
+    local tlength = function(t)
         local count = 0
         for _ in pairs(t) do count = count + 1 end
         return count
@@ -16,7 +16,7 @@
         end
     end
 
-    local function sortSpells(a, b)         -- SORT
+    local sortSpells = function(a, b)         -- SORT
             -- show lower priority first, or alphabetically within same priority
         return a.priority < b.priority or a.priority == b.priority and a.name < b.name
     end
@@ -42,40 +42,45 @@
     end})
 
     f:SetScript('OnEvent', function()
-        local i = 0
         local shown = 1
-    	while true do
+    	for i = 0, 31 do
+            local b = GetPlayerBuff(i, 'HELPFUL')
+            local d = GetPlayerBuff(i, 'HARMFUL')
+
             GameTooltip:SetOwner(UIParent, 'ANCHOR_NONE')
             GameTooltip:ClearLines()
-            GameTooltip:SetPlayerBuff(GetPlayerBuff(i, 'HELPFUL'))
+            GameTooltip:SetPlayerBuff(b)
             local buff  = GameTooltipTextLeft1:GetText()
 
             GameTooltip:ClearLines()
-            GameTooltip:SetPlayerBuff(GetPlayerBuff(i, 'HARMFUL'))
-            local debuff  = GameTooltipTextLeft1:GetText()
-            local stack = GetPlayerBuffApplications(i)
+            GameTooltip:SetPlayerBuff(d)
+            local debuff = GameTooltipTextLeft1:GetText()
 
-            for i = shown, tlength(fontstrings) do
-                fontstrings[i]:Hide()
+            local bs = GetPlayerBuffApplications(b)
+            local ds = GetPlayerBuffApplications(d)
+
+            for j = shown, tlength(fontstrings) do
+                fontstrings[j]:Hide()
             end
 
-            for j = 1, tlength(modspells) do
-                local spell = modspells[j]
-                if (buff and spell.name == buff) or (debuff and spell.name == debuff) then
-                    if spell.show == true then
-                        local fontstring = fontstrings[shown] -- keep them all in another indexed table
-                        fontstring:SetText(string.rep(spell.symbol, stack > 0 and stack or 1))
-                        fontstring:SetFont(STANDARD_TEXT_FONT, spell.size, 'OUTLINE')
-                        fontstring:SetTextColor(spell.colour[1], spell.colour[2], spell.colour[3])
-                        fontstring:Show()
-                        shown = shown + 1
-                    end
+            for k = 1, tlength(modspells) do
+                local spell = modspells[k]
+                local activeBuff   = spell.active and spell.name == buff
+                local activeDebuff = spell.active and spell.name == debuff
+
+                if (activeBuff or activeDebuff) and spell.show then
+                    local fontstring = fontstrings[shown] -- keep them all in another indexed table
+                    local stack = spell.name == buff and bs or ds
+                    fontstring:SetText(string.rep(spell.symbol, stack > 0 and stack or 1))
+                    fontstring:SetFont(STANDARD_TEXT_FONT, spell.size, 'MONOCHROMEOUTLINE')
+                    fontstring:SetTextColor(spell.colour[1], spell.colour[2], spell.colour[3])
+                    fontstring:Show()
+                    shown = shown + 1
                 end
             end
 
             GameTooltip:Hide()
-            if not buff then break end
-            i = i + 1
+            if not buff and not debuff then break end
         end
     end)
 
